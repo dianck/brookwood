@@ -5,13 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,4 +16,201 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden; /* cegah scroll horizontal */
 }
+
+html {
+  overflow-x: hidden;
+}
+
+/* Wrapper utama */
+.site_content {
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
+  padding-bottom: 64px; /* tinggi bottom nav */
+}
+
+
+.site_content .content {
+  flex: 1;
+  width: 100%;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Desktop: center layout */
+@media (min-width: 768px) {
+  .site_content {
+    max-width: 420px;
+    margin: 0 auto;
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    background: #fff;
+  }
+}
+
+/* ---------------- NAVBAR ---------------- */
+
+/* Default navbar */
+.top-navbar {
+  width: 100%;
+  position: relative;
+  background: #fff;
+  transition: all 0.22s ease;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  z-index: 999;
+}
+
+/* Placeholder agar layout tidak lompat */
+.navbar-placeholder {
+  display: block;
+}
+
+/* Desktop (>=992px): navbar mengapung di tengah */
+@media (min-width: 992px) {
+  .top-navbar.scrolled {
+    position: fixed;
+    top: 12px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;          /* center otomatis */
+    max-width: 420px;        /* samakan dengan site_content */
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    background: #fff;
+  }
+}
+
+
+/* Mobile (<992px): tetap full width */
+@media (max-width: 991px) {
+  .top-navbar,
+  .top-navbar.scrolled {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    width: 100% !important;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .navbar-placeholder { display: none; }
+}
+
+/* ---------------- Extra styling ---------------- */
+
+.brookwood-txt p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #007bff;
+}
+
+.homepage-cart-sec {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+}
+
+/* ---------------- BOTTOM NAV ---------------- */
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  z-index: 1000;
+  height: 64px;
+
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0 32px; 
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+  z-index: 5;
+  overflow: visible;
+}
+
+
+/* grup kiri & kanan */
+.bottom-navbar .nav-group {
+  display: flex;
+  gap: 40px; /* jarak antar icon */
+}
+
+.bottom-navbar button,
+.bottom-navbar a {
+  display: flex;
+  flex-direction: column;  /* kalau mau ada label bawah icon */
+  align-items: center;
+  justify-content: center;
+  color: #555;
+}
+
+.bottom-navbar svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* floating cart */
+/* .bottom-navbar .cart-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30%);
+  background: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  padding: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+} */
+
+.bottom-navbar .cart-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30%);
+  background: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Membuat cincin transparan */
+.bottom-navbar .cart-btn::before {
+  content: "";
+  position: absolute;
+  inset: -20px; /* keluar 20px dari tombol */
+  border-radius: 50%;
+  z-index: -1; /* supaya di belakang tombol */
+
+  background: radial-gradient(
+    circle,
+    transparent 28px,          /* area tombol tetap bolong */
+    white 10px,                /* cincin mulai putih */
+    white calc(28px + 10px),   /* tebal cincin 20px */
+    transparent calc(28px + 10px) /* luar tetap transparan */
+  );
+}
+
+
+
+
+
+
+
+
+
